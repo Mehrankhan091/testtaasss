@@ -118,7 +118,7 @@ pipeline {
             }
         }
 
-                stage('Deploy to S3') {
+            stage('Terraform destroy') {
             steps {
                 withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                  sh "terraform destroy"
