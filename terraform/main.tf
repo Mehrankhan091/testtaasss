@@ -20,7 +20,7 @@ provider "aws" {
 
 
 resource "aws_s3_bucket" "b" {
-  bucket = "web-stack-test-bucket"
+  bucket = "web-stack-test-bucket-tettssa"
 
   tags = {
     Name = "My bucket"

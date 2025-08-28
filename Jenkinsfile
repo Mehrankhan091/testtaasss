@@ -76,7 +76,46 @@ pipeline {
                 }
             }
         }
+        stage('Creating Infta Terraform') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    dir('terraform'){
+                        script{
+                            //Terarform Init
+                            sh 'terraform init -input=false'
+                            // Terraform Plan
+                            sh 'terraform paln -input=false '
 
+                            // Terraform Apply
 
+                            sh 'terraform apply -input=false -auto-approve tfplan'
+                        }
+                    }
+                }
+            }
+            post{
+                success{
+                    echo "Infta is Success"
+                }
+                failure{
+                    echo "Terraform faild"
+                }
+            }
+        }               
+        stage('Deploy to S3') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                 sh "aws s3 cp ./build/ s3://web-stack-test-bucket-tettssa/ --recursive"
+                }
+            }
+            post{
+                success{
+                    echo "Copy build to s3"
+                }
+                failure{
+                    echo "Copy build to S3 failed"
+                }
+            }
+        }
     }
 }
