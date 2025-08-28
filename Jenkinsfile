@@ -9,7 +9,7 @@ pipeline {
         stage('Example') {
             steps {
                 // Use "params" (with an A) to access the parameter
-                echo "The source branch is: ${env.GIT_BRANCH}"
+                echo "The source branch is: ${env.CHANGE_BRANCH}"
             }
         }
         stage('install dependices') {
