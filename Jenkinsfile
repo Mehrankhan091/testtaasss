@@ -37,7 +37,7 @@ pipeline {
         stage('Formatterx') {
             steps {
                 echo 'Formatteing'
-                sh 'npm run prettier -- ––write'
+                sh 'npm run prettier -- --write'
             }
             post{
                 success{
