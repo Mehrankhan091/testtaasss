@@ -85,11 +85,11 @@ pipeline {
                         // Terraform Init
                         sh 'terraform init -input=false'
 
-                        sh 'terraform new ${env.CHANGE_BRANCH}'
+                        sh 'terraform workspace new ${env.CHANGE_BRANCH}'
 
                         sh 'terraform workspace select ${env.CHANGE_BRANCH}'
                         // Terraform Plan
-                        
+
                         sh 'terraform plan -input=false '
 
                         // Terraform Apply
