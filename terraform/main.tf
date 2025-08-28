@@ -15,7 +15,7 @@ provider "aws" {
 
 
 resource "aws_s3_bucket" "b" {
-  bucket = "my-web-bucket-for-assignemnt-stake"
+  bucket = "${lookup(webBucket, "devl" , error)}-buckett-assa"
 
   tags = {
     Name = "My bucket"
@@ -24,7 +24,7 @@ resource "aws_s3_bucket" "b" {
 
 
 resource "aws_s3_bucket" "logs" {
-  bucket = "my-web-bucket-for-assignemnt-logs"
+  bucket = "${lookup(logBucket, "devl" , error)}-logbucketlass"
 }
 
 
