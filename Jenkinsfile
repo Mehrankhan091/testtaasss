@@ -117,5 +117,21 @@ pipeline {
                 }
             }
         }
+
+                stage('Deploy to S3') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                 sh "terraform destroy"
+                }
+            }
+            post{
+                success{
+                    echo "destroy complete"
+                }
+                failure{
+                    echo "failed to destroy"
+                }
+            }
+        }
     }
 }
