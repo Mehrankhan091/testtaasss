@@ -95,7 +95,7 @@ pipeline {
                 }
             }
         }
-       stage('Build') {
+       stage('Copy to S3') {
             steps {
             withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                 sh "aws s3 cp ./build/ s3://my-web-bucket-for-assignemnt-stake/"
