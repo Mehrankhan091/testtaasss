@@ -174,10 +174,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
 resource "aws_s3_bucket_policy" "web-bucket" {
   bucket = aws_s3_bucket.b.id
-  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
+  policy = data.aws_iam_policy_document.web-bucket.json
 }
 
-data "aws_iam_policy_document" "allow_access_from_another_account" {
+data "aws_iam_policy_document" "web-bucket" {
   statement {
     principals {
       type        = "Service"
@@ -194,9 +194,9 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
   }
 }
 
-resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
-  bucket = aws_s3_bucket.example.id
-  policy = data.aws_iam_policy_document.allow_access_from_another_account.json
+resource "aws_s3_bucket_policy" "Logspolicy" {
+  bucket = aws_s3_bucket.logs.id
+  policy = data.aws_iam_policy_document.logsPolicy.json
 }
 
 data "aws_iam_policy_document" "logsPolicy" {
