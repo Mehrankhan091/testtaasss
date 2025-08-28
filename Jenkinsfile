@@ -77,11 +77,11 @@ pipeline {
                         // Terraform Init
                         sh 'terraform init -input=false'
                         // Terraform Plan
-                        sh 'terraform plan -input=false -out=tfplan'
+                        sh 'terraform plan -input=false '
 
                         // Terraform Apply
 
-                        sh 'terraform apply -input=false -auto-approve tfplan'
+                        sh 'terraform apply -input=false -auto-approve'
                     }
                 }
                 }
