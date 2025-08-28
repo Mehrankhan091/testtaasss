@@ -70,6 +70,50 @@ pipeline {
                 }
             }
         }
+        stage('Terraforn Infra') {
+            steps {withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                dir('terraform'){
+                    script{
+                        // Terraform Init
+                        sh 'terraform init -input=false'
+                        // Terraform Plan
+                        sh 'terraform plan -input=false -out=tfplan'
+
+                        // Terraform Apply
+
+                        sh 'terraform apply -input=false -auto-approve tfplan'
+                    }
+                }
+                }
+            }
+            post{
+                success{
+                    echo "Terraform success"
+                }
+                failure{
+                    echo "Terraform failed"
+                }
+            }
+        }
+       stage('Build') {
+            steps {
+            withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS_CRED', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh "aws s3 cp ./build/ s3://my-web-bucket-for-assignemnt-stake/"
+            }
+            }
+            post{
+                success{
+                    echo "Build success"
+                }
+                failure{
+                    echo "Build failed"
+                }
+            }
+        }
+
+
+
+
     }
 }
 
