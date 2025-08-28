@@ -3,17 +3,13 @@ pipeline {
     tools {
         nodejs 'nodejs'
     }
-    parameters {
-        string(name: 'SOURCE_BRANCH')
-    }
-
 
     stages {
 
         stage('Example') {
             steps {
                 // Use "params" (with an A) to access the parameter
-                echo "The source branch is:"${params.SOURCE_BRANCH}
+                echo "The source branch is: ${env.BRANCH_NAME}"
             }
         }
         stage('install dependices') {
