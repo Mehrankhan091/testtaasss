@@ -198,7 +198,7 @@ resource "aws_s3_bucket_policy" "logs" {
   policy = data.aws_iam_policy_document.logs.json
 }
 
-data "aws_iam_policy_document" "WebBucket" {
+data "aws_iam_policy_document" "logs" {
   statement {
     principals {
       type        = "Service"
