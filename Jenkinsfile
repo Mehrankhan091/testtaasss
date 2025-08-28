@@ -84,7 +84,7 @@ pipeline {
                             //Terarform Init
                             sh 'terraform init -input=false'
                             // Terraform Plan
-                            sh 'terraform plan -input=false '
+                            sh 'terraform plan -input=false -out=tfplan '
 
                             // Terraform Apply
 
